@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.github.adityagarde.microservices</groupId>
     <artifactId>currency-exchange-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>currency-exchange-service</name>
     <description>Currency Exchange Microservice</description>
     <properties>
@@ -92,6 +92,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>adityagarde/${project.artifactId}:${project.version}</name>
+                    </image>
+                    <pullPolicy>IF_NOT_PRESENT</pullPolicy>
+                </configuration>
             </plugin>
         </plugins>
     </build>
