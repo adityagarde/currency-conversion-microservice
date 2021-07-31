@@ -26,9 +26,12 @@ spec:
       - image: adityagarde/k8s-currency-conversion-service:0.1.2
         imagePullPolicy: IfNotPresent
         name: k8s-currency-conversion-service
-        env:
-          - name: CURRENCY_EXCHANGE_URI
-            value: http://currency-exchange
+        envFrom:
+          - configMapRef:
+              name: currency-conversion
+ #       env:
+ #         - name: CURRENCY_EXCHANGE_URI
+ #           value: http://currency-exchange
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -47,3 +50,11 @@ spec:
     app: currency-conversion
   sessionAffinity: None
   type: LoadBalancer
+---
+apiVersion: v1
+data:
+  CURRENCY_EXCHANGE_URI: http://currency-exchange
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2021-07-31T16:57:48Z"
+  name: currency-conversion
